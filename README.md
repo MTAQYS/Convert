@@ -56,6 +56,10 @@ Use a trailing slash (`/Convert/`).
 
 The repository setting **Settings → Pages → Build and deployment → Source** must be **GitHub Actions**. The workflow cannot publish until that source is selected. After the first successful run, the site is at `https://mtaqys.github.io/Convert/`.
 
+Open Graph and Twitter URLs are `SITE_ORIGIN` in [`src/site.ts`](src/site.ts) joined to that base path. It is `https://mtaqys.github.io` today. Change `SITE_ORIGIN` when the tool moves to dynamogic.com. The footer credit links to https://dynamogic.com/ beside the Grand-duc mark.
+
+The page uses the Dynamogic identity: dark by default (`#0E0F11`), light when requested (`#F5F3EE`), Instrument Serif, Geist, Geist Mono, and one copper accent. The fonts are self-hosted, and the content security policy keeps `font-src 'self'`.
+
 `.github/workflows/ci.yml` runs lint, tests and the production build on every push.
 
 ## Deploy to Cloudflare Pages

@@ -1,5 +1,6 @@
 import { applyI18n, getLang, onLanguageChange, setLanguage, t } from '../i18n';
 import { parseHash, ROUTES, type RouteId } from '../lib/route';
+import { DYNAMOGIC_URL } from '../site';
 import { announce } from './announce';
 import { el } from './dom';
 import { mountColors } from './views/colors';
@@ -17,6 +18,8 @@ const mounts: Record<RouteId, (root: HTMLElement) => () => void> = {
 };
 
 const THEME_KEY = 'convert.theme';
+/** Keep in sync with public/theme-init.js. */
+const THEME_COLOR = { light: '#F5F3EE', dark: '#0E0F11' } as const;
 
 export function start(): void {
   const storedTheme = readTheme();
@@ -63,6 +66,7 @@ export function start(): void {
   const crash = el('p', { class: 'message crash', role: 'alert', 'data-i18n': 'app.crash' }, [t('app.crash')]);
   crash.hidden = true;
   const status = el('p', { id: 'status', class: 'sr', role: 'status' });
+  const footerCredit = el('span', { 'data-i18n': 'footer.credit' }, [t('footer.credit')]);
 
   app.append(
     skip,
@@ -79,7 +83,16 @@ export function start(): void {
     status,
     el('footer', {}, [
       el('p', { class: 'hint', 'data-i18n': 'footer.privacy' }, [t('footer.privacy')]),
-      el('a', { href: 'https://mtaqys.github.io/', 'data-i18n': 'footer.credit' }, [t('footer.credit')]),
+      el('a', { class: 'credit', href: DYNAMOGIC_URL }, [
+        el('img', {
+          class: 'mark',
+          src: `${import.meta.env.BASE_URL}mark.svg`,
+          alt: '',
+          width: '24',
+          height: '24',
+        }),
+        footerCredit,
+      ]),
     ]),
   );
   const nav = app.querySelector('nav');
@@ -92,6 +105,8 @@ export function start(): void {
     themeButton.textContent = t(dark ? 'theme.toLight' : 'theme.toDark');
     themeButton.setAttribute('aria-label', t(dark ? 'theme.toLightLabel' : 'theme.toDarkLabel'));
     themeButton.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', THEME_COLOR[dark ? 'dark' : 'light']);
   };
 
   const paintLang = () => {
@@ -159,9 +174,7 @@ export function start(): void {
 }
 
 function activeTheme(): 'light' | 'dark' {
-  const explicit = document.documentElement.getAttribute('data-theme');
-  if (explicit === 'light' || explicit === 'dark') return explicit;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
 }
 
 function readTheme(): 'light' | 'dark' | null {

@@ -1,11 +1,11 @@
-import '@fontsource/source-sans-3/latin-400.css';
-import '@fontsource/source-sans-3/latin-ext-400.css';
-import '@fontsource/source-sans-3/latin-600.css';
-import '@fontsource/source-sans-3/latin-ext-600.css';
-import '@fontsource/source-serif-4/latin-400.css';
-import '@fontsource/source-serif-4/latin-ext-400.css';
-import '@fontsource/source-serif-4/latin-600.css';
-import '@fontsource/source-serif-4/latin-ext-600.css';
+import '@fontsource/instrument-serif/latin-400.css';
+import '@fontsource/instrument-serif/latin-ext-400.css';
+import '@fontsource/geist/latin-400.css';
+import '@fontsource/geist/latin-ext-400.css';
+import '@fontsource/geist/latin-500.css';
+import '@fontsource/geist/latin-ext-500.css';
+import '@fontsource/geist-mono/latin-400.css';
+import '@fontsource/geist-mono/latin-ext-400.css';
 import './style.css';
 import { start } from './app/shell';
 

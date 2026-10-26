@@ -3,15 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Convertit images, données, encodages, couleurs et unités dans le navigateur. Rien n'est envoyé." />
     <meta name="referrer" content="no-referrer" />
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' blob: data:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests"
     />
-    <meta name="theme-color" content="#f3f1eb" />
     <title>Convert</title>
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <meta
+      name="description"
+      content="Convertit images, données, encodages, couleurs et unités dans le navigateur. Rien n'est envoyé."
+    />
+    <meta name="theme-color" content="#0E0F11" />
+    <!-- Root paths: Vite prefixes the configured base, in dev and in the build. -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-16.svg" type="image/svg+xml" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dynamogic" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:title" content="Convert" />
+    <meta
+      property="og:description"
+      content="Convertit images, données, encodages, couleurs et unités dans le navigateur. Rien n'est envoyé."
+    />
+    <meta property="og:url" content="__SITE_URL__" />
+    <meta property="og:image" content="__SITE_URL__og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Convert, un outil Dynamogic : images, données, encodages, couleurs et unités dans le navigateur."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Convert" />
+    <meta
+      name="twitter:description"
+      content="Convertit images, données, encodages, couleurs et unités dans le navigateur. Rien n'est envoyé."
+    />
+    <meta name="twitter:url" content="__SITE_URL__" />
+    <meta name="twitter:image" content="__SITE_URL__og.png" />
+    <meta
+      name="twitter:image:alt"
+      content="Convert, un outil Dynamogic : images, données, encodages, couleurs et unités dans le navigateur."
+    />
+    <script src="/theme-init.js"></script>
   </head>
   <body>
     <div id="app"></div>
