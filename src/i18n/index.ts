@@ -31,16 +31,51 @@ export function formatError(error: ConvertError): string {
   });
 }
 
+/** Title, description, and Open Graph locale for one language. */
+export function socialMeta(language: Lang): {
+  title: string;
+  description: string;
+  imageAlt: string;
+  locale: string;
+  localeAlternate: string;
+} {
+  const dict = dictionaries[language];
+  return {
+    title: dict['meta.title'],
+    description: dict['meta.description'],
+    imageAlt: dict['meta.imageAlt'],
+    locale: dict['meta.locale'],
+    localeAlternate: dict['meta.localeAlternate'],
+  };
+}
+
 export function setLanguage(next: Lang): void {
   lang = next;
   persist('convert.lang', next);
   if (typeof document !== 'undefined') {
-    document.documentElement.lang = next;
+    applyDocumentMeta();
     applyI18n(document);
-    const description = document.querySelector('meta[name="description"]');
-    if (description) description.setAttribute('content', t('meta.description'));
   }
   for (const listener of listeners) listener();
+}
+
+function applyDocumentMeta(): void {
+  const meta = socialMeta(lang);
+  document.documentElement.lang = lang;
+  setMeta('meta[name="description"]', meta.description);
+  setMeta('meta[property="og:title"]', meta.title);
+  setMeta('meta[property="og:description"]', meta.description);
+  setMeta('meta[property="og:locale"]', meta.locale);
+  setMeta('meta[property="og:locale:alternate"]', meta.localeAlternate);
+  setMeta('meta[property="og:image:alt"]', meta.imageAlt);
+  setMeta('meta[name="twitter:title"]', meta.title);
+  setMeta('meta[name="twitter:description"]', meta.description);
+  setMeta('meta[name="twitter:image:alt"]', meta.imageAlt);
+}
+
+function setMeta(selector: string, content: string): void {
+  const node = document.querySelector(selector);
+  if (node) node.setAttribute('content', content);
 }
 
 export function onLanguageChange(listener: () => void): () => void {

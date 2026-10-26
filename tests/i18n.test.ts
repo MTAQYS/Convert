@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ERROR_CODES } from '../src/lib/errors';
-import { formatError, t } from '../src/i18n';
+import { formatError, socialMeta, t } from '../src/i18n';
 import { CATEGORIES, unitsIn } from '../src/lib/units';
 import { ROUTES } from '../src/lib/route';
 import { IMAGE_FORMATS } from '../src/lib/image';
@@ -73,5 +73,23 @@ describe('i18n catalogues', () => {
     expect(text).toContain('4');
     expect(text).toContain('2');
     expect(t('footer.credit')).toBe('Un outil Dynamogic / A Dynamogic tool');
+    expect(en['footer.credit']).toBe(fr['footer.credit']);
+  });
+
+  it('switches the title, description, and social locale', () => {
+    expect(socialMeta('fr')).toEqual({
+      title: 'Convert',
+      description: fr['meta.description'],
+      imageAlt: fr['meta.imageAlt'],
+      locale: 'fr_FR',
+      localeAlternate: 'en_US',
+    });
+    expect(socialMeta('en')).toEqual({
+      title: 'Convert',
+      description: en['meta.description'],
+      imageAlt: en['meta.imageAlt'],
+      locale: 'en_US',
+      localeAlternate: 'fr_FR',
+    });
   });
 });
