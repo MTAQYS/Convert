@@ -228,7 +228,7 @@ export function mountImages(root: HTMLElement): () => void {
     showMessage(formError, '');
     const queue = items.filter((item) => !(item.error && FILE_ERRORS.has(item.error.code)));
     if (queue.length === 0) {
-      showMessage(formError, formatError({ code: 'empty_input' }));
+      if (items.length === 0) showMessage(formError, formatError({ code: 'empty_input' }));
       return;
     }
     const names = uniqueFilenames(queue.map((item) => outputName(item.file.name, target)));
